@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winest Management</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <h1>Winest Management</h1>
+      <p>ระบบจัดการธุรกรรมและข้อมูลของคนในค่าย</p>
+    </div>
+    <div class="api-config">
+      <label for="apiBase">API Base URL</label>
+      <input id="apiBase" type="url" placeholder="http://localhost:8080" />
+      <button id="saveApiBaseBtn">บันทึก</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>ข้อมูลค่าย</h2>
+      <form id="companySetupForm" class="inline-form">
+        <input id="companyName" type="text" placeholder="ชื่อค่าย" required minlength="2" />
+        <button type="submit">สร้างค่าย</button>
+      </form>
+      <div class="inline-form">
+        <button id="loadCompanyInfoBtn">รีเฟรชข้อมูลค่าย</button>
+      </div>
+      <form id="withdrawForm" class="inline-form">
+        <input id="withdrawAmount" type="number" min="0.01" step="0.01" placeholder="จำนวนเงินที่เบิก" required />
+        <button type="submit">เบิกเงิน</button>
+      </form>
+      <pre id="companyInfoOutput" class="output"></pre>
+    </section>
+
+    <section class="card">
+      <h2>สมาชิก</h2>
+      <form id="memberForm" class="stack-form">
+        <input id="memberName" type="text" placeholder="ชื่อสมาชิก" required minlength="2" />
+        <input id="memberAge" type="number" min="1" max="120" placeholder="อายุ" required />
+        <input id="memberRole" type="text" placeholder="บทบาท" required minlength="2" />
+        <button type="submit">เพิ่มสมาชิก</button>
+      </form>
+      <div class="inline-form">
+        <button id="loadMembersBtn">ดึงสมาชิกที่ Active</button>
+      </div>
+      <form id="updateMemberNameForm" class="inline-form">
+        <input id="updateMemberId" type="number" min="1" placeholder="Member ID" required />
+        <input id="updateMemberNewName" type="text" minlength="2" placeholder="ชื่อใหม่" required />
+        <button type="submit">เปลี่ยนชื่อ</button>
+      </form>
+      <form id="memberBalanceForm" class="inline-form">
+        <input id="balanceMemberId" type="number" min="1" placeholder="Member ID" required />
+        <input id="balanceAmount" type="number" min="0.01" step="0.01" placeholder="จำนวนเงิน" required />
+        <button type="submit">เพิ่มยอดเงิน</button>
+      </form>
+      <form id="deleteMemberForm" class="inline-form">
+        <input id="deleteMemberId" type="number" min="1" placeholder="Member ID" required />
+        <button type="submit" class="danger">ลาออก (Soft Delete)</button>
+      </form>
+      <pre id="membersOutput" class="output"></pre>
+    </section>
+
+    <section class="card">
+      <h2>โปรเจกต์</h2>
+      <form id="projectForm" class="stack-form">
+        <input id="projectName" type="text" placeholder="ชื่อโปรเจกต์" required minlength="2" />
+        <input id="projectTotalPrice" type="number" min="0.01" step="0.01" placeholder="ราคารวม" required />
+        <button type="submit">สร้างโปรเจกต์</button>
+      </form>
+      <div class="inline-form">
+        <button id="loadProjectsBtn">ดึงโปรเจกต์ทั้งหมด</button>
+        <button id="loadUnfinishedBtn">งานยังไม่เสร็จ</button>
+        <button id="loadUnpaidBtn">งานค้างจ่าย</button>
+      </div>
+      <form id="workStatusForm" class="inline-form">
+        <input id="workProjectId" type="number" min="1" placeholder="Project ID" required />
+        <select id="workFinished" required>
+          <option value="">เลือกสถานะงาน</option>
+          <option value="true">เสร็จแล้ว</option>
+          <option value="false">ยังไม่เสร็จ</option>
+        </select>
+        <button type="submit">อัปเดตสถานะงาน</button>
+      </form>
+      <form id="payProjectForm" class="inline-form">
+        <input id="payProjectId" type="number" min="1" placeholder="Project ID" required />
+        <button type="submit">จ่ายเงินโปรเจกต์</button>
+      </form>
+      <form id="deleteProjectForm" class="inline-form">
+        <input id="deleteProjectId" type="number" min="1" placeholder="Project ID" required />
+        <button type="submit" class="danger">ลบโปรเจกต์</button>
+      </form>
+      <pre id="projectsOutput" class="output"></pre>
+    </section>
+
+    <section class="card">
+      <h2>ผู้เข้าร่วมโปรเจกต์</h2>
+      <form id="addParticipantForm" class="inline-form">
+        <input id="participantProjectId" type="number" min="1" placeholder="Project ID" required />
+        <input id="participantMemberId" type="number" min="1" placeholder="Member ID" required />
+        <button type="submit">เพิ่มผู้เข้าร่วม</button>
+      </form>
+      <form id="removeParticipantForm" class="inline-form">
+        <input id="removeParticipantId" type="number" min="1" placeholder="Participant ID" required />
+        <button type="submit" class="danger">ลบผู้เข้าร่วม</button>
+      </form>
+      <form id="listParticipantsForm" class="inline-form">
+        <input id="listParticipantProjectId" type="number" min="1" placeholder="Project ID" required />
+        <button type="submit">ดูผู้เข้าร่วมตามโปรเจกต์</button>
+      </form>
+      <pre id="participantsOutput" class="output"></pre>
+    </section>
+
+    <section class="card">
+      <h2>รายได้ VT</h2>
+      <form id="recordVtForm" class="inline-form">
+        <input id="vtMemberId" type="number" min="1" placeholder="Member ID" required />
+        <input id="vtAmount" type="number" min="0.01" step="0.01" placeholder="ยอดโดเนท" required />
+        <button type="submit">บันทึกรายได้</button>
+      </form>
+      <div class="inline-form">
+        <button id="loadAllVtBtn">รายได้ VT ทั้งหมด</button>
+      </div>
+      <form id="loadMemberVtForm" class="inline-form">
+        <input id="loadVtMemberId" type="number" min="1" placeholder="Member ID" required />
+        <button type="submit">รายได้ VT ตามสมาชิก</button>
+      </form>
+      <pre id="vtOutput" class="output"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Statement / Audit</h2>
+      <div class="inline-form">
+        <button id="loadAllStatementsBtn">Statement ทั้งหมด</button>
+        <button id="loadCompanyStatementsBtn">Statement ฝั่งค่าย</button>
+      </div>
+      <form id="loadMemberStatementsForm" class="inline-form">
+        <input id="statementMemberId" type="number" min="1" placeholder="Member ID" required />
+        <button type="submit">Statement ตามสมาชิก</button>
+      </form>
+      <pre id="statementOutput" class="output"></pre>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
