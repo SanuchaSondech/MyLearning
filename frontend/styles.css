@@ -1,0 +1,129 @@
+:root {
+  --bg: #f5f8ff;
+  --surface: #ffffff;
+  --primary: #2f5bff;
+  --secondary: #6d39ff;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #dbe3ff;
+  --danger: #e11d48;
+  --shadow: 0 10px 30px rgba(47, 91, 255, 0.08);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: linear-gradient(140deg, #f8fbff 0%, #f3f0ff 100%);
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.hero h1 { margin: 0; color: var(--primary); }
+.hero p { margin: 0.25rem 0 0; color: var(--muted); }
+
+.api-config {
+  display: flex;
+  align-items: end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+  color: var(--secondary);
+}
+
+.inline-form,
+.stack-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.stack-form { flex-direction: column; }
+
+input, select, button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.58rem 0.7rem;
+  font-size: 0.95rem;
+}
+
+input, select {
+  background: #fbfcff;
+  flex: 1;
+  min-width: 120px;
+}
+
+button {
+  border: none;
+  color: #fff;
+  background: linear-gradient(120deg, var(--primary), var(--secondary));
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.2s ease;
+}
+button:hover { transform: translateY(-1px); opacity: 0.95; }
+button.danger { background: linear-gradient(120deg, #ef476f, #c11252); }
+
+.output {
+  background: #f8faff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  min-height: 110px;
+  max-height: 260px;
+  overflow: auto;
+  font-size: 0.85rem;
+}
+
+.toast {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  color: #fff;
+  background: #1e40af;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: all 0.2s ease;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.error { background: #b91c1c; }
+
+@media (max-width: 600px) {
+  .hero { position: static; }
+}
