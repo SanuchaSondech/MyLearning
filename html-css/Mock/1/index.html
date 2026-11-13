@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTuber Portfolio Map</title>
+    <style>
+        /* จัดวางโครงสร้างหลัก */
+        body { margin: 0; display: flex; justify-content: center; background: #1a1a2e; font-family: sans-serif; }
+        .app-container {
+            width: 100%; max-width: 450px; height: 100vh;
+            background: #fff; position: relative; overflow: hidden;
+        }
+
+        /* ส่วนโซนพื้นที่ (ใช้ clip-path สร้างเส้นโค้ง) */
+        .zone {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-size: 24px;
+            cursor: pointer; transition: 0.4s;
+        }
+        .zone:hover { filter: brightness(1.2); z-index: 10; }
+
+        /* การกำหนดรูปทรงโค้งแต่ละโซน */
+        .tab1 { background: #ff4d6d; clip-path: polygon(0 0, 100% 0, 100% 20%, 50% 40%, 0 30%); }
+        .tab2 { background: #ffbe0b; clip-path: polygon(0 30%, 50% 40%, 40% 70%, 0 80%); }
+        .tab3 { background: #3a86ff; clip-path: polygon(100% 20%, 100% 50%, 60% 50%, 50% 40%); }
+        .tab4 { background: #8338ec; clip-path: polygon(50% 40%, 60% 50%, 100% 50%, 100% 70%, 40% 70%); }
+        .tab5 { background: #fb5607; clip-path: polygon(0 80%, 40% 70%, 100% 70%, 100% 100%, 0 100%); }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="zone tab1" onclick="alert('ไปหน้า Tab 1')">Tab 1</div>
+    <div class="zone tab2" onclick="alert('ไปหน้า Tab 2')">Tab 2</div>
+    <div class="zone tab3" onclick="alert('ไปหน้า Tab 3')">Tab 3</div>
+    <div class="zone tab4" onclick="alert('ไปหน้า Tab 4')">Tab 4</div>
+    <div class="zone tab5" onclick="alert('ไปหน้า Tab 5')">Tab 5</div>
+</div>
+
+</body>
+</html>

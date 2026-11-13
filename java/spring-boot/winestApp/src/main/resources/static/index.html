@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winest — Agency Management</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Chart.js สำหรับหน้า Company -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar">
+    <a href="#" class="navbar-brand">
+        ⭐ Winest<span class="brand-dot">.</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#" class="nav-link active" data-page="members">
+            <span>👥</span><span class="nav-label">สมาชิก</span>
+        </a></li>
+        <li><a href="#" class="nav-link" data-page="projects">
+            <span>📋</span><span class="nav-label">โปรเจกต์</span>
+        </a></li>
+        <li><a href="#" class="nav-link" data-page="vtincome">
+            <span>💰</span><span class="nav-label">รายได้ VTuber</span>
+        </a></li>
+        <li><a href="#" class="nav-link" data-page="statements">
+            <span>📊</span><span class="nav-label">การเงิน</span>
+        </a></li>
+        <li><a href="#" class="nav-link" data-page="company">
+            <span>🏢</span><span class="nav-label">บริษัท</span>
+        </a></li>
+    </ul>
+</nav>
+
+<!-- ==================== PAGES ==================== -->
+<div id="page-members"    class="page active"></div>
+<div id="page-projects"   class="page"></div>
+<div id="page-vtincome"   class="page"></div>
+<div id="page-statements" class="page"></div>
+<div id="page-company"    class="page"></div>
+
+<!-- ==================== SHARED SCRIPTS ==================== -->
+<script src="js/api.js"></script>
+<script src="js/members.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/vtIncome.js"></script>
+<script src="js/statements.js"></script>
+<script src="js/company.js"></script>
+
+<script>
+    /**
+     * Router — สลับหน้าตาม data-page
+     * เมื่อกดเมนูจะ: ซ่อนทุก page → แสดง page ที่เลือก → เรียก init function ของ page นั้น
+     */
+    const pageInitFns = {
+      members:    () => typeof initMembers    === 'function' && initMembers(),
+      projects:   () => typeof initProjects   === 'function' && initProjects(),
+      vtincome:   () => typeof initVtIncome   === 'function' && initVtIncome(),
+      statements: () => typeof initStatements === 'function' && initStatements(),
+      company:    () => typeof initCompany    === 'function' && initCompany(),
+    };
+
+    function navigateTo(pageName) {
+      // ซ่อนทุกหน้า
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+
+      // แสดงหน้าที่เลือก
+      const pageEl = document.getElementById('page-' + pageName);
+      if (pageEl) pageEl.classList.add('active');
+
+      // Highlight nav
+      const navEl = document.querySelector(`.nav-link[data-page="${pageName}"]`);
+      if (navEl) navEl.classList.add('active');
+
+      // เรียก init ของหน้านั้น
+      if (pageInitFns[pageName]) pageInitFns[pageName]();
+    }
+
+    // ผูก event กับ nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.dataset.page);
+      });
+    });
+
+    // โหลดหน้าแรก (สมาชิก) เมื่อ DOM พร้อม
+    document.addEventListener('DOMContentLoaded', () => {
+      navigateTo('members');
+    });
+</script>
+
+</body>
+</html>

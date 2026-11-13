@@ -1,0 +1,56 @@
+div {
+    background-color: #a4cef2;
+    padding: 4px;
+    padding-left: 20px;
+    padding-top: 100px;
+    position: relative;
+    
+}
+
+h1{
+    
+    width: 20%;
+    margin: 0 auto;
+
+}
+
+body{
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+
+}
+
+span{
+    text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.img-small {
+  width: 300px;
+}
+
+.mountain-1 {
+  width: 800px;
+}
+
+.cloud-1 {
+  width: 300px;
+  position: absolute;
+  left: 300px;
+  top: 300px;
+
+}
+
+.cloud-2 {
+  width: 300px;
+  position: absolute;
+  right: 300px;
+  top: 50px;
+}

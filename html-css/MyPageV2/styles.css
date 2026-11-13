@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eef6fc;
+  margin: 0;
+  padding: 0;
+}
+
+.profile table {
+  margin: 0 auto;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; 
+  margin-right: 20px; 
+}
+
+table {
+  border-collapse: collapse;
+  margin-left: 10px ;
+  width: 80%;
+}
+
+th, td {
+  padding: 10px;
+}
+
+footer {
+  background-color: #a4cef2;
+  padding: 10px;
+}
+
+a {
+  color: blue;
+}
+
+form button {
+  background-color: #4CAF50; /* สีเขียว */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+form {
+    text-align: center;
+    }
+
+form button:hover {
+  background-color: #45a049; /* สีเขียวเข้มเมื่อชี้เมาส์ */
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.contact-center {
+  text-align: center;
+}

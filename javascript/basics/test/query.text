@@ -1,0 +1,72 @@
+WITH RECURSIVE skill_tree AS (
+	SELECT
+	id, 
+	parent_soft_skill_id, 
+	skill_name,
+	skill_layer, 
+	skill_name AS cluster_name,
+	id         AS cluster_id
+	FROM smtest_soft_skills
+	WHERE parent_soft_skill_id IS NULL
+	AND is_active = TRUE
+
+	UNION ALL
+
+	SELECT
+	c.id, 
+	c.parent_soft_skill_id, 
+	c.skill_name,
+	c.skill_layer, 
+	p.cluster_name, 
+	p.cluster_id
+	FROM smtest_soft_skills c
+	JOIN skill_tree p ON c.parent_soft_skill_id = p.id
+	WHERE c.is_active = TRUE
+),
+
+role_names AS (
+	SELECT DISTINCT
+	cause_of_inactivity_code  AS role_code,
+	cause_of_inactivity       AS role_name
+	FROM master_employees
+	WHERE cause_of_inactivity_code IS NOT NULL AND status = 'Active'
+)
+
+SELECT
+		st.id,
+    st.cluster_name          AS skill_cluster,
+    st.skill_name            AS specific_skill,
+    hrt.job_role,
+    rn.role_name             AS job_role_name, 
+    hrt.job_level
+    
+FROM skill_tree st
+LEFT JOIN smtest_soft_role_targets hrt ON hrt.fk_soft_skill_id = st.id
+LEFT JOIN smtest_soft_tool_targets brt ON brt.fk_soft_role_target_id = hrt.id
+LEFT JOIN role_names rn ON rn.role_code = hrt.job_role
+WHERE st.skill_layer = 'Specific Skill'
+
+-- 1. ฟิลเตอร์ของ Specific Skill
+AND (
+    {{ !slcSpecific_skill.selectedOptionValue ? 1 : 0 }} = 1
+    OR st.skill_name ILIKE '%' || {{ slcSpecific_skill.selectedOptionValue || "" }} || '%'
+)
+
+-- 2. ฟิลเตอร์ของ Cluster
+AND (
+    {{ !slc_cluster.selectedOptionValue ? 1 : 0 }} = 1
+    OR st.cluster_name ILIKE '%' || {{ slc_cluster.selectedOptionValue || "" }} || '%'
+)
+
+-- 3. ฟิลเตอร์ของ Role
+AND (
+    {{ !slc_role.selectedOptionValue ? 1 : 0 }} = 1
+    OR rn.role_name ILIKE '%' || {{ slc_role.selectedOptionValue || "" }} || '%'
+    OR hrt.job_role ILIKE '%' || {{ slc_role.selectedOptionValue || "" }} || '%'
+)
+ORDER BY
+		st.id,
+    st.cluster_name,
+    st.skill_name,
+    hrt.job_role,
+    hrt.job_level;

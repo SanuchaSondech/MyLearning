@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Custom Widget</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<!---->
+	<section>
+
+	</section>
+
+
+
+	<section>
+		<div class="mb-3">
+			<p class="fs-5">
+				ขอแจ้งสรุปรายการโครงการที่ต้องการการตรวจสอบและดำเนินการแก้ไข
+				ตามข้อมูล Performance Management ดังนี้:
+			</p>
+			<input id="inputIntro" type="text" class="form-control my-3" placeholder="ข้อความใหม่">
+		</div>
+
+		<!-- Project Delayed -->
+		<div class="mb-3">
+			<h5>Project Delayed (โครงการล่าช้า)</h5>
+			<p fs-6>โครงการของคุณมีความล่าช้า โปรดตรวจสอบและดำเนินการให้แล้วเสร็จ</p>
+			<input id="inputCondition1" type="text" class="form-control my-3" placeholder="ข้อความใหม่">
+			<div class="table-responsive">
+				<table class="table table-bordered table-sm">
+					<thead class="table-light">
+						<tr>
+							<th>Project</th>
+							<th>Description</th>
+							<th>Customer</th>
+							<th>PM</th>
+							<th>End Date</th>
+							<th>Progress (%)</th>
+							<th>Delay (%)</th>
+							<th>Forecast (%)</th>
+							<th>Job Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Project with No Plan -->
+		<div class="mb-3">
+			<h5>Project with No Plan / Contract Milestone (โครงการขาดแผนงาน)</h5>
+			<p fs-6>โครงการของคุณไม่มีแผนงานหรือ Milestone โปรดปรับปรุง</p>
+			<input id="inputCondition2" type="text" class="form-control my-3" placeholder="ข้อความใหม่">
+			<div class="table-responsive">
+				<table class="table table-bordered table-sm">
+					<thead class="table-light">
+						<tr>
+							<th>Project</th>
+							<th>Description</th>
+							<th>Customer</th>
+							<th>Plan Status</th>
+							<th>PM</th>
+							<th>Win Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Project with MA Task -->
+		<div class="mb-3">
+			<h5>Project with MA Task but no Warranty or MA Date</h5>
+			<p fs-6>โครงการของคุณมี MA แต่ไม่มีข้อมูลวันรับประกันหรือ MA Date</p>
+			<input id="inputCondition3" type="text" class="form-control my-3" placeholder="ข้อความใหม่">
+			<div class="table-responsive">
+				<table class="table table-bordered table-sm">
+					<thead class="table-light">
+						<tr>
+							<th>Project</th>
+							<th>Description</th>
+							<th>Customer</th>
+							<th>PM</th>
+							<th>Order Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Project Overdue -->
+		<div class="mb-3">
+			<h5>Project Overdue & Incomplete (เลยกำหนดและยังไม่เสร็จสิ้น)</h5>
+			<p fs-6>โครงการของคุณเกินกำหนดส่งและยังไม่เสร็จ 100%</p>
+			<input id="inputCondition4" type="text" class="form-control my-3" placeholder="ข้อความใหม่">
+			<div class="table-responsive">
+				<table class="table table-bordered table-sm">
+					<thead class="table-light">
+						<tr>
+							<th>Project</th>
+							<th>Description</th>
+							<th>Customer</th>
+							<th>PM</th>
+							<th>Progress</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Project Overdue but not Closed -->
+		<div class="mb-3">
+			<h5>Project Overdue but not Closed</h5>
+			<p fs-6>โครงการของคุณเกินกำหนดส่งแต่ยังไม่ปิดสถานะ</p>
+			<input id="inputCondition5" type="text" class="form-control my-3" placeholder="ข้อความใหม่">
+			<div class="table-responsive">
+				<table class="table table-bordered table-sm">
+					<thead class="table-light">
+						<tr>
+							<th>Project</th>
+							<th>Description</th>
+							<th>Customer</th>
+							<th>Day Befor End Date</th>
+							<th>End Date</th>
+							<th>PM</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- ปุ่มยืนยัน -->
+		<div class="gap-2 text-center">
+			<button onclick="saveToDataBase()" class="btn btn-primary" type="button">confirm</button>
+		</div>
+	</section>
+	<script src="app.js"></script>
+</body>
+
+</html>

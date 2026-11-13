@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA - Premium Enterprise Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- DESIGN SYSTEM & VARIABLES --- */
+        :root {
+            --bg-main: #0B0A0F;         /* ดำลึกแบบลักชูรี */
+            --bg-card: #13111C;         /* ฟอร์มการ์ดม่วงเข้มโทนดาร์ก */
+            --bg-card-hover: #1A1826;
+            --primary: #8A2BE2;         /* สีม่วงหลัก (Royal Purple) */
+            --primary-glow: rgba(138, 43, 226, 0.4);
+            --accent: #BB86FC;          /* ม่วงพาสเทลสำหรับเน้นจุดสำคัญ */
+            --text-main: #F3F4F6;        /* ขาวนวลสบายตา */
+            --text-muted: #7E7C8C;       /* เทาอมม่วงสำหรับข้อมูลรอง */
+            --border-color: rgba(138, 43, 226, 0.15);
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        aside {
+            width: var(--sidebar-width);
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 3.5rem;
+        }
+
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            padding: 0.875rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item a:hover, .menu-item.active a {
+            color: var(--text-main);
+            background-color: rgba(138, 43, 226, 0.1);
+            border-left: 3px solid var(--primary);
+            padding-left: 0.8rem;
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        main {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 2.5rem 3rem;
+            max-width: 1400px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .user-profile:hover {
+            background: rgba(138, 43, 226, 0.05);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* --- METRICS GRID --- */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background-color: var(--bg-card-hover);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(138, 43, 226, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .card-trend {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trend-up { color: #00E676; }
+        .trend-down { color: #FF1744; }
+
+        /* --- DATA TABLE SECTION --- */
+        .section-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.75rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .btn-filter {
+            background: rgba(138, 43, 226, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .btn-filter:hover {
+            background: var(--primary);
+            color: var(--text-main);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1.25rem 1rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(0, 230, 118, 0.1);
+            color: #00E676;
+            border: 1px solid rgba(0, 230, 118, 0.2);
+        }
+
+        .status-pending {
+            background: rgba(255, 145, 0, 0.1);
+            color: #FF9100;
+            border: 1px solid rgba(255, 145, 0, 0.2);
+        }
+
+        /* Animation class trigger by JS */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="logo">
+            <span>✦</span> AURA
+        </div>
+        <ul class="menu-list">
+            <li class="menu-item active" onclick="changeMenu(this)"><a href="#">Overview</a></li>
+            <li class="menu-item" onclick="changeMenu(this)"><a href="#">Analytics</a></li>
+            <li class="menu-item" onclick="changeMenu(this)"><a href="#">Operations</a></li>
+            <li class="menu-item" onclick="changeMenu(this)"><a href="#">Team Matrix</a></li>
+            <li class="menu-item" onclick="changeMenu(this)"><a href="#">Settings</a></li>
+        </ul>
+    </aside>
+
+    <main class="fade-in">
+        <header>
+            <div class="header-title">
+                <h1 id="greeting">ยินดีต้อนรับกลับ, ผู้บริหาร</h1>
+                <p>ภาพรวมและการจัดการประสิทธิภาพภายในองค์กรวันนี้</p>
+            </div>
+            <div class="user-profile" onclick="alert('Profile Configuration Coming Soon')">
+                <div class="avatar">SD</div>
+                <div style="font-size: 0.9rem; font-weight: 500;">Sanucha S.</div>
+            </div>
+        </header>
+
+        <section class="metrics-grid">
+            <div class="card">
+                <div class="card-tag">Active Projects</div>
+                <div class="card-value" id="val-projects">24 / 28</div>
+                <div class="card-trend trend-up">▲ 12% เติบโตเดือนนี้</div>
+            </div>
+            <div class="card">
+                <div class="card-tag">Resource Efficiency</div>
+                <div class="card-value">94.2%</div>
+                <div class="card-trend trend-up">▲ 2.4% จากสัปดาห์ที่แล้ว</div>
+            </div>
+            <div class="card">
+                <div class="card-tag">System Node Status</div>
+                <div class="card-value" style="color: var(--accent);">Stable</div>
+                <div class="card-trend" style="color: var(--text-muted);">Latency 14ms</div>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <div class="section-header">
+                <div class="section-title">โปรเจกต์และการดำเนินงานล่าสุด</div>
+                <button class="btn-filter" onclick="toggleFilter()">กรองเฉพาะ Active</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table id="project-table">
+                    <thead>
+                        <tr>
+                            <th>ชื่อโปรเจกต์</th>
+                            <th>ผู้รับผิดชอบหลัก (PM)</th>
+                            <th>อัปเดตล่าสุด</th>
+                            <th>สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 500;">Core Banking API Migration</td>
+                            <td>Jumrearn D.</td>
+                            <td>10 นาทีที่แล้ว</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 500;">Skill Matrix Heatmap UI</td>
+                            <td>Nutta W.</td>
+                            <td>2 ชั่วโมงที่แล้ว</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 500;">Appsmith Logging Integration</td>
+                            <td>Sanucha S.</td>
+                            <td>เมื่อวานนี้</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 500;">Automated QA Framework</td>
+                            <td>Tinbodee H.</td>
+                            <td>3 วันที่แล้ว</td>
+                            <td><span class="status-badge status-pending">Pending Review</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 1. เปลี่ยนสถานะ Active ของเมนูฝั่ง Sidebar
+        function changeMenu(element) {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // เพิ่มลูกเล่นเปลี่ยนหัวข้อตามเมนูแบบ Dynamic
+            const menuText = element.innerText;
+            document.querySelector('.header-title h1').innerText = `ระบบจัดการ / ${menuText}`;
+        }
+
+        // 2. ฟังก์ชันจำลองการกรองข้อมูลในตาราง (Interactive Filter)
+        let isFiltered = false;
+        function toggleFilter() {
+            const tableRows = document.querySelectorAll('#project-table tbody tr');
+            const btn = document.querySelector('.btn-filter');
+            isFiltered = !isFiltered;
+
+            tableRows.forEach(row => {
+                const statusBadge = row.querySelector('.status-badge');
+                if (isFiltered && !statusBadge.classList.contains('status-active')) {
+                    row.style.display = 'none'; // ซ่อนตัวที่เป็น Pending
+                } else {
+                    row.style.style = '';
+                    row.style.display = 'table-row'; // แสดงทั้งหมด
+                }
+            });
+
+            btn.innerText = isFiltered ? "แสดงทั้งหมด" : "กรองเฉพาะ Active";
+            btn.style.background = isFiltered ? "var(--primary)" : "rgba(138, 43, 226, 0.1)";
+            btn.style.color = isFiltered ? "#fff" : "var(--accent)";
+        }
+
+        // 3. Dynamic Greeting ตามเวลาจริง (ลูกเล่นเสริมความ Premium)
+        window.addEventListener('DOMContentLoaded', () => {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('greeting');
+            
+            if (hour < 12) greetingElement.innerText = "อรุณสวัสดิ์, ผู้บริหาร";
+            else if (hour < 18) greetingElement.innerText = "สวัสดีตอนบ่าย, ผู้บริหาร";
+            else greetingElement.innerText = "ราตรีสวัสดิ์, ผู้บริหาร";
+        });
+    </script>
+</body>
+</html>
